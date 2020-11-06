@@ -1,23 +1,45 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import GliderMap from "./components/GliderMap";
+import Endpoints from "./util/Endpoints";
 
 function App() {
+  const [stops, setStops] = useState([]);
+
+  useEffect(() => {
+    fetchStops();
+  }, [])
+
+  const fetchStops = () => {
+    fetch(Endpoints.STOPS)
+      .then(res => res.json())
+      .then(newStops => {
+        if (newStops.stops.length) {
+          setStops(newStops.stops);
+        }
+      })
+      .catch(e => console.log(e))
+  }
+
+
+  const fetchStopInfo = (stop) => {
+    fetch(Endpoints.STOP_INFO + '/' + stop.id)
+      .then(res => res.json())
+      .then(stopInfo => {
+        //do something
+      })
+      .catch(e => console.log(e))
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GliderMap
+        stops={stops}
+        googleMapURL={'https://maps.googleapis.com/maps/api/js?key=AIzaSyBkHRuOEvL8BERtTR0oIB-mw8e0QkMVA2U&v=3.exp&libraries=geometry,drawing,places'}
+        loadingElement={<div style={{ height: `100%` }} />}
+        containerElement={<div style={{ height: `800px`, margin: 20 }} />}
+        mapElement={<div style={{ height: `100%` }} />}
+      />
     </div>
   );
 }
