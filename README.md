@@ -14,7 +14,7 @@ This repository contains the map component and two endpoints to obtain Stop data
 
 Don't spend too much time on this (2-3 hours *max*). What we are looking for are core concepts, interesting ideas, and clean code.
 
-For submission, Github is preferred (JSFiddle, Codepen, CodeSandbox etc are fine if you have trouble) - just send a link to conor@getalfi.com and lorenzo@getalfi.com when you're done (and remember to give us permissions!).
+For submission, Github is preferred (JSFiddle, Codepen, CodeSandbox etc are fine if you have trouble) - just fork the repo and send a link to conor@getalfi.com and lorenzo@getalfi.com when you're done (and remember to give us permissions!).
 
 Good luck, and have fun!
 
