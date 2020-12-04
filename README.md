@@ -1,16 +1,6 @@
 # Alfi Technical Test
 
-Displaying real-time metrics for our devices' locations and statuses is a critical component of our reporting strategy. This allows us to provide accurate, live data to our clients.
-
-Using Translink's JourneyPlanner API, implement an MVP in React for a real-time reporting dashboard. What exactly this consists of is up to you, but preferably it will include:
-- A map component (or a *very* pretty table, lol)
-- A way to locate/inspect stops
-- A way to track buses
-- Information about the routes available
-
-As Translink's JourneyPlanner API is supposedly quite complex and undocumented (surprise surprise!) you may find this package useful: https://github.com/McPo/belfast-glider-api-server
-
-This repository contains the map component and two endpoints to obtain Stop data.
+There are 3 questions contained in this repo. Please work through them at your own pace, and complete them however you wish.
 
 Don't spend too much time on this (2-3 hours *max*). What we are looking for are core concepts, interesting ideas, and clean code.
 
