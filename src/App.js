@@ -1,45 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import GliderMap from "./components/GliderMap";
-import Endpoints from "./util/Endpoints";
+import Question1 from "./questions/Question1";
+import Question2 from "./questions/Question2";
+import Question3 from "./questions/Question3";
 
 function App() {
-  const [stops, setStops] = useState([]);
+  const questions = [
+    'Question1',
+    'Question2',
+    'Question3',
+  ]
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  useEffect(() => {
-    fetchStops();
-  }, [])
-
-  const fetchStops = () => {
-    fetch(Endpoints.STOPS)
-      .then(res => res.json())
-      .then(newStops => {
-        if (newStops.stops.length) {
-          setStops(newStops.stops);
-        }
-      })
-      .catch(e => console.log(e))
-  }
-
-
-  const fetchStopInfo = (stop) => {
-    fetch(Endpoints.STOP_INFO + '/' + stop.id)
-      .then(res => res.json())
-      .then(stopInfo => {
-        //do something
-      })
-      .catch(e => console.log(e))
+  const renderQuestion = () => {
+    switch (currentQuestionIndex) {
+      case 0:
+        return (
+          <Question1/>
+        )
+      case 1:
+        return (
+          <Question2/>
+        )
+      case 2:
+        return (
+          <Question3/>
+        )
+      default:
+        return (
+          <Question1/>
+        )
+    }
   }
 
   return (
     <div className="App">
-      <GliderMap
-        stops={stops}
-        googleMapURL={'https://maps.googleapis.com/maps/api/js?key=AIzaSyBkHRuOEvL8BERtTR0oIB-mw8e0QkMVA2U&v=3.exp&libraries=geometry,drawing,places'}
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `800px`, margin: 20 }} />}
-        mapElement={<div style={{ height: `100%` }} />}
-      />
+      <div style={{margin: 20}}>
+        {questions.map((question, index) => <button onClick={() => setCurrentQuestionIndex(index)}>{question}</button>)}
+      </div>
+      <div style={{justifyContent: 'center', alignItems: 'center'}}>
+        {renderQuestion()}
+      </div>
     </div>
   );
 }
