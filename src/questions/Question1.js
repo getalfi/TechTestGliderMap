@@ -5,27 +5,51 @@ export default function Question1 (props) {
   // Please modify the TestForm component such that it will correctly use hooks to validate and post to the endpoint.
   // Feel free to use any (or no) external libraries you feel appropriate.
   // Endpoint docs: https://jsonplaceholder.typicode.com/guide/
+  
 
-  const state = {
+  ///Some Resources That Helped////
+  /*
+    https://stackoverflow.com/questions/47642449/initializing-react-number-input-control-with-blank-value
+    https://jsonplaceholder.typicode.com/guide/
+    https://jsonplaceholder.typicode.com/guide/
+    https://reactjs.org/docs/hooks-state.html
+  */
+  
+  /* State Var */
+  const [state, stateCond] = useState({
     title: '',
     body: '',
     userId: 1337,
-  }
+  });
+
+  const {title, body, userId} = state;
   const errormessage = '';
+
+  /* Helper Function */
+  const updateState = e =>{
+    const {name, value} = e.target;
+    const newState = Object.assign({}, state);
+    newState[name] = value;
+    stateCond(newState);
+  }
 
   useEffect(() => {
     if (state.title.length < 0) {
       errormessage = "You need to enter a title!"
     }
-  }, [state.username]);
+  }, [state.userId]);
 
-  const handleSubmit = () => {
+
+  const handleSubmit = e => {
+
+    e.preventDefault()
+
     fetch('https://jsonplaceholder.typicode.com/posts',{
       method: 'post',
       data: JSON.toString({
-        title: state.title,
-        body: state.body,
-        userId: state.UserId
+        title,
+        body,
+        userId
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -36,38 +60,39 @@ export default function Question1 (props) {
   }
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <div>
         <div>
-          Title:
+          <div>
+            Title:
+          </div>
+          <input name={state.title} defaultValue={title} onChange={updateState}/>
         </div>
-        <input name={state.title}/>
-      </div>
 
-      <div>
         <div>
-          Body:
+          <div>
+            Body:
+          </div>
+          <input name={state.body} defaultValue={body} onChange={updateState}/>
         </div>
-        <input name={state.body}/>
-      </div>
 
-      <div>
         <div>
-          UserId:
+          <div>
+            UserId:
+          </div>
+          <select name={state.userId} defaultValue={userId} onChange={updateState}>
+            <option>1337</option>
+            <option>1234</option>
+            <option>1066</option>
+          </select>
         </div>
-        <select name={state.userId}>
-          <option>1337</option>
-          <option>1234</option>
-          <option>1066</option>
-        </select>
+        
+        <div>
+          {errormessage}
+        </div>
+
+        <button type="submit" style={{margin: 10}}>Submit</button>
       </div>
-
-      <div>
-        {errormessage}
-      </div>
-
-      <button onClick={handleSubmit()} style={{margin: 10}}>Submit</button>
-    </div>
-
+    </form>
   )
 }
